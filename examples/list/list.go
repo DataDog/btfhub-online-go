@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	client, err := btfhubonline.New("localhost:8080", btfhubonline.ClientOptions{Secure: false})
+	client, err := btfhubonline.New("http://localhost:8080")
 	if err != nil {
 		log.Fatal(err)
 	}

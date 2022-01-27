@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"net/url"
 
 	"github.com/go-resty/resty/v2"
 )
@@ -13,19 +14,13 @@ type Client struct {
 	serverAddress string
 }
 
-// ClientOptions holds the different options for connecting to the client.
-type ClientOptions struct {
-	Secure bool
-}
-
 // New initiates a new instance of BTFHub online client.
-func New(serverAddress string, opts ClientOptions) (Client, error) {
-	finalURL, err := craftURL(serverAddress, opts.Secure)
-	if err != nil {
-		return Client{}, fmt.Errorf("failed crafting url due to: %v", err)
+func New(serverAddress string) (Client, error) {
+	if _, err := url.ParseRequestURI(serverAddress); err != nil {
+		return Client{}, fmt.Errorf("url %q is invalid: %v", serverAddress, err)
 	}
 	return Client{
-		serverAddress: finalURL,
+		serverAddress: serverAddress,
 	}, nil
 }
 
