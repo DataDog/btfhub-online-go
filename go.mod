@@ -1,4 +1,4 @@
-module github.com/seek-ret/btfhubonline
+module github.com/seek-ret/btfhub-online-go
 
 go 1.16
 

@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/seek-ret/btfhubonline/btfhubonline"
+	"github.com/seek-ret/btfhub-online-go/btfhubonline"
 	"log"
 )
 
