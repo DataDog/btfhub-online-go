@@ -8,7 +8,7 @@ import (
 	"github.com/go-resty/resty/v2"
 )
 
-// Client exposes all apis available in the BTFHub online server.
+// Client exposes all API available in the BTFHub online server.
 type Client struct {
 	serverAddress string
 }
@@ -36,7 +36,7 @@ func getBaseRequest() *resty.Request {
 	return request
 }
 
-// List returns a list of BTFRecordIdentifier that exist in the server.
+// List returns a list of BTFRecordIdentifier objects that exist in the server.
 func (client Client) List() ([]BTFRecordIdentifier, error) {
 	request := getBaseRequest()
 	response, err := request.Get(fmt.Sprintf("%s/api/v1/list", client.serverAddress))
@@ -45,7 +45,7 @@ func (client Client) List() ([]BTFRecordIdentifier, error) {
 	}
 	// IsError is not the opposite of IsSuccess.
 	if !response.IsSuccess() {
-		return nil, fmt.Errorf("expeted to get a success status code, but instead got %d. Error: %s", response.StatusCode(), response.String())
+		return nil, fmt.Errorf("failed to retrieve BTFs list. Detailed message: Response code: %d, message: %s", response.StatusCode(), response.String())
 	}
 
 	var btfList []BTFRecordIdentifier
@@ -66,7 +66,7 @@ func (client Client) GetRawBTF(btfIdentifier BTFRecordIdentifier) ([]byte, error
 	}
 	// IsError is not the opposite of IsSuccess.
 	if !response.IsSuccess() {
-		return nil, fmt.Errorf("expeted to get a success status code, but instead got %d. Error: %s", response.StatusCode(), string(response.Body()))
+		return nil, fmt.Errorf("failed to retrieve BTF. Detailed message: Response code: %d. message: %s", response.StatusCode(), response.String())
 	}
 	return response.Body(), nil
 }
@@ -82,7 +82,7 @@ func (client Client) GetCustomBTF(btfIdentifier BTFRecordIdentifier, bpfBinary [
 	}
 	// IsError is not the opposite of IsSuccess.
 	if !response.IsSuccess() {
-		return nil, fmt.Errorf("expeted to get a success status code, but instead got %d. Error: %s", response.StatusCode(), string(response.Body()))
+		return nil, fmt.Errorf("failed to retrieve a custom BTF. Detailed message: Response code %d, message: %s", response.StatusCode(), response.String())
 	}
 	return response.Body(), nil
 }

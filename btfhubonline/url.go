@@ -14,7 +14,7 @@ const (
 // craftURL builds a valid URL out of serverAddress and the secure flag.
 func craftURL(serverAddress string, secure bool) (string, error) {
 	if strings.HasPrefix(serverAddress, httpPrefix) || strings.HasPrefix(serverAddress, httpsPrefix) {
-		return "", fmt.Errorf("server address %q should not hold a scheme, please use ClientOptions instead", serverAddress)
+		return "", fmt.Errorf("server address %q should not hold a URL scheme, please use ClientOptions instead", serverAddress)
 	}
 	scheme := httpPrefix
 	if secure {
