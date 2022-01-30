@@ -1,0 +1,52 @@
+name: build and lint
+
+on:
+  workflow_dispatch:
+    branches: [ '**' ]
+  pull_request:
+    branches: [ '**' ]
+  schedule:
+    - cron: '0 */12 * * *'
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build_test:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: guyarb/deny-not-updated-branch@v1.0.0
+
+      - name: cancel redundant job
+        uses: technote-space/auto-cancel-redundant-job@v1
+
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          version: v1.30
+
+      - name: build
+        run: |
+          make build
+
+      - name: test
+        run: |
+          make ci-test 2>&1
+
+      - name: Annotate tests
+        if: ${{ success() || failure() }}
+        uses: guyarb/golang-test-annoations@v0.5.0
+        with:
+          test-results: test.json
+
+      - name: upload test results
+        uses: actions/upload-artifact@v2
+        if: ${{ success() || failure() }}
+        with:
+          name: test-coverage-results
+          path: |
+            test.json
