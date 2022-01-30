@@ -62,7 +62,7 @@ btf, err := client.GetCustomBTF(btfIdentifier, bpfByteCode)
 
 ## Checking distribution and kernel version
 
-###Distribution:
+### Distribution:
 ```bash
 cat /etc/os-release | grep "^ID="
 ```
@@ -72,7 +72,7 @@ Output:
 ID=ubuntu
 ```
 
-###Distribution Version:
+### Distribution Version:
 ```bash
 cat /etc/os-release | grep "VERSION_ID="
 ```
@@ -82,7 +82,7 @@ Output:
 VERSION_ID="20.04"
 ```
 
-###Kernel Version:
+### Kernel Version:
 
 Run:
 ```bash
@@ -94,7 +94,7 @@ Output:
 5.11.0-44-generic
 ```
 
-###Arch:
+### Arch:
 
 Run:
 ```bash
