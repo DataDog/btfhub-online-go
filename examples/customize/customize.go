@@ -12,12 +12,12 @@ const (
 )
 
 func main() {
-	client, err := btfhubonline.New("http://localhost:8080")
+	client, err := btfhubonline.New("https://btfhub.seekret.io")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	bpfByteCode, err := ioutil.ReadFile("<bpf.core.o>")
+	bpfByteCode, err := ioutil.ReadFile("/home/guy/code/ebpf-sniffer/cmd/sniffer/bpf.core.o")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -34,7 +34,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	localBTFPath := fmt.Sprintf("%s_%s_%s_%s.tar.xz", btfIdentifier.Distribution, btfIdentifier.DistributionVersion, btfIdentifier.Arch, btfIdentifier.KernelVersion)
+	localBTFPath := fmt.Sprintf("%s_%s_%s_%s.btf", btfIdentifier.Distribution, btfIdentifier.DistributionVersion, btfIdentifier.Arch, btfIdentifier.KernelVersion)
 	if err := ioutil.WriteFile(localBTFPath, btf, defaultFilePermissions); err != nil {
 		log.Fatal(err)
 	}
