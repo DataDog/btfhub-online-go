@@ -17,7 +17,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	bpfByteCode, err := ioutil.ReadFile("/home/guy/code/ebpf-sniffer/cmd/sniffer/bpf.core.o")
+	bpfByteCode, err := ioutil.ReadFile("<bpf.core.o>")
 	if err != nil {
 		log.Fatal(err)
 	}
