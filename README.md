@@ -4,7 +4,7 @@ Golang client to communicate with the BTFHub online server.
 # Download from GitHub
 
 ```bash
-go get github.com/seek-ret/btfhubonline
+go get github.com/seek-ret/btfhub-online-go
 ```
 
 # Examples
