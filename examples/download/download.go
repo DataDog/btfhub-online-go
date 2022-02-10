@@ -12,7 +12,7 @@ const (
 )
 
 func main() {
-	client, err := btfhubonline.New("http://localhost:8080")
+	client, err := btfhubonline.New("https://btfhub.seekret.io")
 	if err != nil {
 		log.Fatal(err)
 	}

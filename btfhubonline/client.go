@@ -7,6 +7,7 @@ import (
 	"net/url"
 
 	"github.com/go-resty/resty/v2"
+	"github.com/seek-ret/btfhub-online-go/internal/compression"
 )
 
 // Client exposes all API available in the BTFHub online server.
@@ -79,5 +80,5 @@ func (client Client) GetCustomBTF(btfIdentifier BTFRecordIdentifier, bpfBinary [
 	if !response.IsSuccess() {
 		return nil, fmt.Errorf("failed to retrieve a custom BTF. Detailed message: Response code %d, message: %s", response.StatusCode(), response.String())
 	}
-	return response.Body(), nil
+	return compression.ExtractFileTarXZ(bytes.NewReader(response.Body()))
 }
